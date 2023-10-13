@@ -1,0 +1,26 @@
+[
+    
+
+    {
+    "ID": "abes21",
+    "Brand": "ASUS",
+    "Type": "Motherboard",
+    "Model": "Z790",
+    "IsNew": true
+    },
+    {
+    "ID": "bea24",
+    "Brand": "Crucial",
+    "Type": "16x2 Ram",
+    "Model": "DDR5-6000",
+    "IsNew": true
+    },
+    {
+    "ID": "ckw26",
+    "Brand": "MSI",
+    "Type": "GPU",
+    "Model": "RTX 4080ti",
+    "IsNew": false
+    }   
+    
+]
