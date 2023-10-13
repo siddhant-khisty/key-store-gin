@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +20,7 @@ type computerHardware struct {
 // Array to store data
 var computers = []computerHardware{
 	{
-		ID:    "21",
+		ID:    "ade2s1d4",
 		Brand: "MSI",
 		Type:  "GPU",
 		Model: "RTX 4080ti",
@@ -35,6 +36,7 @@ func main() {
 	router.GET("/getAll", GetAll)
 	router.GET("/get/:id", GetbyID)
 	router.POST("/key/set", addToMemory)
+	router.GET("/search", Search)
 
 	//Start server on port 9000
 	router.Run(":9000")
@@ -84,6 +86,51 @@ func addToMemory(context *gin.Context){
 	// Add the new data to existing array
 	computers = append(computers, newHardwareArr...)
 	context.IndentedJSON(http.StatusCreated, newHardwareArr)
-
 } 
 
+// Search through all the ID of all elements and match given query
+func Search (context *gin.Context){
+
+	// store the values on prefix or suffix, as entered
+	prefix := context.Query("prefix")
+	suffix:= context.Query("suffix")
+
+
+	// return the array element, that has a ID which matches given suffix or prefix
+	if len(prefix) > 0 {	
+
+		getPrefix, err:= getByPrefix(prefix)
+		if err !=nil{		
+		}
+		context.IndentedJSON(http.StatusOK, getPrefix)
+	}
+	if len(suffix) > 0 {
+		getSuffix, err:= getBySuffix(suffix)
+		if err !=nil{
+			
+		}	
+		context.IndentedJSON(http.StatusOK, getSuffix)
+		}
+}
+
+// Search all elements in the array to find a element ID that matches given prefix
+func getByPrefix(prefix string)(*computerHardware, error){
+	
+	for i, comp := range computers{
+		if strings.HasPrefix(comp.ID, prefix){
+		return &computers[i], nil
+			}
+	} 
+		return nil, errors.New("Hardware with given Prefix not found")
+}
+
+// Search all elements in the array to find a element ID that matches given suffix
+func getBySuffix(suffix string)(*computerHardware, error){
+	
+	for i, comp := range computers{
+		if strings.HasSuffix(comp.ID, suffix){
+		return &computers[i], nil
+		}
+	}
+		return nil, errors.New("Hardware with given Suffix not found")
+}
