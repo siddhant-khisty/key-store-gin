@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - http:
+      paths:
+      - path: /getAll
+        pathType: Prefix
+        backend:
+          service:
+            name: kv-service
+            port:
+              number: 80
+      - path: /get/*
+        pathType: Prefix
+        backend:
+          service:
+            name: kv-service
+            port:
+              number: 80
+      - path: /key/set
+        pathType: Prefix
+        backend:
+          service:
+            name: kv-service
+            port:
+              number: 80
+      - path: /search
+        pathType: Prefix
+        backend:
+          service:
+            name: kv-service
+            port:
+              number: 80

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kv-store
+  name: kv-store
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: kv-store
+  template:
+    metadata:
+      labels:
+        app: kv-store
+    spec:
+      containers:
+      - image: siddhantkhisty/gin-kv:latest
+        name: gin-kv
+        ports:
+        - containerPort: 9000
+        resources:
+          requests:
+            memory: "600Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "900m"

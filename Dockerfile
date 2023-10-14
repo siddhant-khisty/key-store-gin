@@ -16,5 +16,7 @@ COPY --from=build /app /app
 
 WORKDIR /app
 
-CMD [ "gin-server" ]
+EXPOSE 9000
+
+CMD [ "/app/gin-server" ]
 
