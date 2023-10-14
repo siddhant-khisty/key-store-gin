@@ -8,23 +8,32 @@ Below are the endpoints that exist for the current version of the app. Use [curl
 
 Assuming that you are compiling the binary and running locally, the app will run on `localhost:9000`.
 
-- `/getAll`: GET call that retrives all the values stored in-memory when the call is made.
+- `/getAll`: GET call that retrives all the values stored in-memory when the call is made.\
+ 
              `curl localhost:9000/getAll`
 
 - `/get/{id}`: GET call that retrives a particular entry based on the ID value of the entry.
                For example, if the element has a ID of `21`, and you do a `curl localhost:9000/get/21`,
-               you will get all the attributes for that element.
+               you will get all the attributes for that element.\
+  
                  `curl localhost:9000/get/21`
+  
 - `/search`: GET method that searches for a certain ID string as either a prefix or suffix which is provided using a query(?) in the URL
 
-    Assuming we have the following ID's stored `AAC4326`,`AA926`, `BLO004` and `GVP021404`
-    --- `/search?prefix=AA`: This will return the data associated with IDs `AAC4326` and `AA926`
-        `curl localhost:9000/search?prefix=AA`
-    --- `/search?suffix=02`: This will return the data associated with IDs `BLO004` and `GVP021404`
-         `curl localhost:9000/search?suffix=02`
+    Assuming we have the following ID's stored `AAC4326`,`AA926`, `BLO004` and `GVP021404`\
+  
+    --- `/search?prefix=AA`: This will return the data associated with IDs `AAC4326` and `AA926`\
+  
+        `curl localhost:9000/search?prefix=AA`\
+  
+    --- `/search?suffix=02`: This will return the data associated with IDs `BLO004` and `GVP021404`\
+  
+         `curl localhost:9000/search?suffix=02`\
+  
 - `/key/sey`: POST call that adds data to the memory. Please make sure that the body is formatted correctly and is a JSON array.
-              If not, you will get a 400 error due to an invalid body. You can make sure of the `seed_data.json` file and enter data in bulk with it.
-             `curl -X POST localhost:9000/key/set -d '@seed_data.json'` - Make sure you're in the project's root directory when running this command to avoid path mis-match errors
+              If not, you will get a 400 error due to an invalid body. You can make sure of the `seed_data.json` file and enter data in bulk with it.\
+  
+             `curl -X POST localhost:9000/key/set -d '@seed_data.json'` - Make sure you're in the project's root directory when running this command to avoid path mismatch errors
 
 # Running the Project
 ## Building from source and running locally
