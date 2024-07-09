@@ -2,7 +2,7 @@
 name: build and push docker image
 on:
   workflow_run:
-    workflows: [build and test]
+    workflows: [build and test, CodeQL]
     types:
       - completed
 jobs:
