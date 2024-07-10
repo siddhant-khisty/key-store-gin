@@ -5,14 +5,17 @@ on:
     workflows: [build and push docker image]
     types:
       - completed
-
 jobs:
- deploy:
- name: deploy-to-kubernetes
- runs-on: kubernetes-runner
- steps:
- – shell: bash
- run: |
- kubectl apply -f https://raw.githubusercontent.com/siddhant-khisty/key-store-gin/main/Kubernetes/deply.yaml
- kubectl apply -f https://raw.githubusercontent.com/siddhant-khisty/key-store-gin/main/Kubernetes/ingress.yaml
- kubectl apply -f https://github.com/siddhant-khisty/key-store-gin/blob/main/Kubernetes/svc.yaml
+ job_1:
+   name: Create k8s deployment
+   runs-on: kuberentes-runner
+   steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+      - name: Make the script files executable
+        run: chmod +x my-script.sh my-other-script.sh
+      - name: Run the scripts
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/siddhant-khisty/key-store-gin/main/Kubernetes/svc.yaml
+          kubectl apply -f https://raw.githubusercontent.com/siddhant-khisty/key-store-gin/main/Kubernetes/deply.yaml
+          kubectl apply -f https://raw.githubusercontent.com/siddhant-khisty/key-store-gin/main/Kubernetes/ingress.yaml
