@@ -6,7 +6,7 @@ on:
     types:
       - completed
 jobs:
- job_1:
+ deploy:
    name: Create k8s deployment
    runs-on: kubernetes-runner
    steps:
