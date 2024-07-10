@@ -1,4 +1,4 @@
-This is a simple key-value store made using the Gin framework, and simulates the data a computer retail shop would need
+This is a simple key-value store made using the Gin framework, and simulates the data a computer retail shop would need 
 
 ## Avaliable API endpoints
 
