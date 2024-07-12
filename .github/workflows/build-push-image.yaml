@@ -31,7 +31,7 @@ jobs:
               curl --location --request POST \
               'http://35.184.124.194:31515/orchestrator/webhook/ext-ci/1' \
               --header 'Content-Type: application/json' \
-              --header 'api-token: {token}' \
+              --header 'api-token: ${{ secrets.DEVTRON_TOKEN }}' \
               --data-raw '{
               "dockerImage": "siddhantkhisty/gin-kv"
               }'
