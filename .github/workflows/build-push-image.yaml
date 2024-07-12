@@ -26,4 +26,13 @@ jobs:
           context: .
           tags: siddhantkhisty/gin-kv
           push: true 
+      - name: Ping devtron server
+        run: |
+              curl --location --request POST \
+              'http://35.184.124.194:31515/orchestrator/webhook/ext-ci/1' \
+              --header 'Content-Type: application/json' \
+              --header 'api-token: {token}' \
+              --data-raw '{
+              "dockerImage": "siddhantkhisty/gin-kv"
+              }'
         
