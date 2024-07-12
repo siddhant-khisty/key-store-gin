@@ -1,6 +1,6 @@
 This is a simple key-value store made using the Gin framework, and simulates the data a computer retail shop would need 
 
-## Avaliable API endpoints
+## Avaliable API endpoints 
 
 The data is stored directly to memory, which means there is no data persistance. Once you close the server, the data is lost for good.
 
