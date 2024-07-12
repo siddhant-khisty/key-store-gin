@@ -33,6 +33,6 @@ jobs:
               --header 'Content-Type: application/json' \
               --header 'api-token: ${{ secrets.DEVTRON_TOKEN }}' \
               --data-raw '{
-              "dockerImage": "siddhantkhisty/gin-kv"
+              "dockerImage": "siddhantkhisty/gin-kv:latest"
               }'
         
