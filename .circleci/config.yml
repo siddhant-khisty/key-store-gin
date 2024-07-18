@@ -21,13 +21,13 @@ jobs:
 
   build-and-push-image:
     docker: 
-      - image: cimg/base:current
+      - image: cimg/python:3.6
     steps:
     - setup_remote_docker
     - checkout
     - docker/check
     - docker/build:
-        image: Dockerfile
+        image: siddhantkhisty/gin-kv
     - docker/push:
         image: siddhantkhisty/gin-kv
   
