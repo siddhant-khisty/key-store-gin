@@ -62,8 +62,9 @@ workflows:
       - build-and-push-image:
           requires:
           - test
+      - prod-avaliable:
+          type: approval          
       - deploy:
-          type: approval
           requires:
             - build-and-push-image
           filters:
