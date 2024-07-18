@@ -24,7 +24,7 @@ jobs:
       - image: cimg/base:current
     resource_class: sids-dummy-org/circle-runner
     steps:
-      # - checkout
+       - checkout
        - kubernetes/install-kubectl
        - kubernetes/create-or-update-resource:
            action-type: apply
