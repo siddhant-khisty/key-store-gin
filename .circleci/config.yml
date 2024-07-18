@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   kubernetes: circleci/kubernetes@1.3.1
   docker: circleci/docker@2.6.0
+  snyk: snyk/snyk@2.1.0
 
 jobs:
   build: 
@@ -11,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: go build  -v ./
+      - snyk/scan
 
   test: 
     docker:
@@ -28,6 +30,8 @@ jobs:
     - docker/check
     - docker/build:
         image: siddhantkhisty/gin-kv
+    - snyk/scan:
+        docker-image-name: siddhantkhisty/gin-kv
     - docker/push:
         image: siddhantkhisty/gin-kv
   
@@ -48,11 +52,6 @@ jobs:
            action-type: apply
            resource-file-path: Kubernetes/ingress.yaml
 
-
-
-
-
-
 workflows:
   build-and-test:
     jobs:
@@ -60,16 +59,13 @@ workflows:
       - test:
           requires:
             - build
-      # - security: 
-      #     requires:
-      #       - test
       - build-and-push-image:
           requires:
           - test
       - deploy:
+          type: approval
           requires:
             - build-and-push-image
-          #  - security
           filters:
             branches:
               only: main
