@@ -63,10 +63,13 @@ workflows:
           requires:
           - test
       - prod-avaliable:
-          type: approval          
+          type: approval
+          requires: 
+            - build-and-push-image
+          
       - deploy:
           requires:
-            - build-and-push-image
+            - prod-avaliable
           filters:
             branches:
               only: main
