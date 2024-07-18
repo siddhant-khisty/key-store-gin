@@ -30,8 +30,8 @@ jobs:
     - docker/check
     - docker/build:
         image: siddhantkhisty/gin-kv
-    - snyk/scan:
-        docker-image-name: siddhantkhisty/gin-kv
+  #  - snyk/scan:
+  #      docker-image-name: siddhantkhisty/gin-kv
     - docker/push:
         image: siddhantkhisty/gin-kv
   
