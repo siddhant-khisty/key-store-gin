@@ -1,13 +1,64 @@
 version: 2.1
+
+orbs:
+  kubernetes: circleci/kubernetes@1.3.1
+
 jobs:
-  build:
+  build: 
+    docker:
+      - image: cimg/go:1.21.5
+    steps:
+      - checkout
+      - run: go build  -v ./
+
+  test: 
+    docker:
+      - image: cimg/go:1.21.5
+    steps:
+      - checkout
+      - run: go test -v ./
+
+  
+  deploy:
     docker:
       - image: cimg/base:current
     resource_class: sids-dummy-org/circle-runner
     steps:
-      - run: echo "Hi I'm on a Container Runner!"
+       - checkout
+       - kubernetes/install-kubectl
+       - kubernetes/create-or-update-resource:
+           action-type: apply
+           resource-file-path: Kubernetes/deply.yaml
+       - kubernetes/create-or-update-resource:
+           action-type: apply
+           resource-file-path: Kubernetes/svc.yaml
+       - kubernetes/create-or-update-resource:
+           action-type: apply
+           resource-file-path: Kubernetes/ingress.yaml
+
+
+
+
+
 
 workflows:
-  build-workflow:
+  build-and-test:
     jobs:
       - build
+      - test:
+          requires:
+            - build
+      # - security: 
+      #     requires:
+      #       - test
+      - deploy:
+          requires:
+            - test
+          #  - security
+          filters:
+            branches:
+              only: main
+
+
+
+
