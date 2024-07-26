@@ -38,7 +38,7 @@ jobs:
   deploy:
     docker:
       - image: cimg/base:current
-    resource_class: sids-dummy-org/circle-runner
+    resource_class: circle-runner/custom-runner
     steps:
        - checkout
        - kubernetes/install-kubectl
