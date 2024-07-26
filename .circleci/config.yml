@@ -53,7 +53,7 @@ jobs:
            resource-file-path: Kubernetes/ingress.yaml
 
 workflows:
-  build-and-test:
+  build-test-and-deploy:
     jobs:
       - build
       - test:
