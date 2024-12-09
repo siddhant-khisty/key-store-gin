@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: llama32-pv
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: "/mnt/data/llama32"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: llama32-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30Gi
+  storageClassName: standard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama32-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama32
+  template:
+    metadata:
+      labels:
+        app: llama32
+    spec:
+      containers:
+      - name: llama32
+        image: ollama/ollama:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+          limits:
+            memory: "12Gi"
+            cpu: "6"
+        ports:
+        - containerPort: 11434
+        volumeMounts:
+        - name: model-storage
+          mountPath: /root/.ollama
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: llama32-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llama32-service
+spec:
+  selector:
+    app: llama32
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 11434
+  type: LoadBalancer
+---
