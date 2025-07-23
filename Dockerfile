@@ -10,7 +10,7 @@ RUN go build -o gin-server
 
 ##############
 
-FROM alpine:3.20.3
+FROM alpine:3.22.1
 
 COPY --from=build /app /app
 
